@@ -221,6 +221,8 @@ class Grid {
     if (this.position.x + this.width >= canvas.width || this.position.x <= 0) {
       this.velocity.x = -this.velocity.x;
       this.velocity.y = 30; // pushes down at a velocity of 30 for only one frame, then sets back to 0
+      var audioInvaderMove = new Audio("sounds/invader.wav");
+      audioInvaderMove.play();
     }
   }
 }
@@ -370,6 +372,9 @@ function animate() {
       invaderProjectile.position.x + invaderProjectile.width >= player.position.x &&
       invaderProjectile.position.x <= player.position.x + player.width
     ) {
+      var audioExplosion = new Audio("sounds/explosion.wav");
+      audioExplosion.play();
+
       console.log("You lose");
 
       setTimeout(() => {
@@ -421,7 +426,8 @@ function animate() {
             projectile.position.x - projectile.radius <= invader.position.x + invader.width && // left side of projectile <= right side of invader
             projectile.position.y + projectile.radius >= invader.position.y // bottom of projectile >= bottom of invader
           ) {
-
+            var audioInvaderKilled = new Audio('sounds/invaderkilled.wav');
+            audioInvaderKilled.play();
 
             setTimeout(() => {
               const invaderFound = grid.invaders.find(
@@ -517,7 +523,9 @@ addEventListener("keydown", ({key}) => {
             x: 0,
             y: -15
           }
-        }))
+        }));
+        var audioShoot = new Audio("sounds/shoot.wav");
+        audioShoot.play();
       // console.log(projectiles);
       break;
   }
