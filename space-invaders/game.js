@@ -19,7 +19,7 @@ class Player {
     this.rotation = 0;
     this.opacity = 1;
 
-    const image = new Image()
+    const image = new Image();
     image.src = "img/spaceship.png";
     image.onload = () => {
       const scale = 0.15;
@@ -57,10 +57,7 @@ class Player {
 }
 
 class Projectile {
-  constructor({
-    position,
-    velocity
-  }) {
+  constructor({position, velocity}) {
     this.position = position;
     this.velocity = velocity;
     this.radius = 4;
@@ -69,7 +66,7 @@ class Projectile {
   draw() {
     c.beginPath();
     c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
-    c.fillStyle = "red";
+    c.fillStyle = 'hsl(' + hue + ', 100%, 50%)';
     c.fill();
     c.closePath();
   }
@@ -86,7 +83,7 @@ class Particle {
     this.position = position;
     this.velocity = velocity;
     this.radius = radius;
-    this.color = color
+    this.color = color;
     this.opacity = 1;
     this.fades = fades;
   }
@@ -122,7 +119,7 @@ class InvaderProjectile {
   }
 
   draw() {
-    c.fillStyle = "white";
+    c.fillStyle = "#F8FF2E";
     c.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 
@@ -134,7 +131,7 @@ class InvaderProjectile {
 }
 
 class Invader {
-  constructor({ position }) {
+  constructor({position}) {
     this.velocity = {
       x: 0,
       y: 0
@@ -253,6 +250,7 @@ let game = {
   active: true
 }
 let score = 0;
+let hue = 0;
 
 // stars
 for (let i = 0; i < 100; i++) {
@@ -337,12 +335,13 @@ function animate() {
   if (!game.active) {
     return true;
   }
+  hue += 10;
   requestAnimationFrame(animate);
   c.fillStyle = "black";
   c.fillRect(0, 0, canvas.width, canvas.height);
   player.update();
   particles.forEach((particle, i) => {
-    //particles are repositioned to top of screen when they reach bottom
+    //star particles are repositioned to top of screen when they reach bottom
     if (particle.position.y - particle.radius >= canvas.height) {
       particle.position.x = Math.random() * canvas.width;
       particle.position.y = -particle.radius;
@@ -509,8 +508,7 @@ addEventListener("keydown", ({key}) => {
       break;
     case ' ':
       // console.log("space");
-      projectiles.push(
-        new Projectile({
+      projectiles.push(new Projectile({
           position: {
             x: player.position.x + player.width / 2,
             y: player.position.y
@@ -525,9 +523,7 @@ addEventListener("keydown", ({key}) => {
   }
 });
 
-addEventListener("keyup", ({
-  key
-}) => {
+addEventListener("keyup", ({key}) => {
   switch (key) {
     case 'a':
       // console.log("left");
