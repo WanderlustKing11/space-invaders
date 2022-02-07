@@ -174,7 +174,7 @@ class Invader {
       },
       velocity: {
         x: 0,
-        y: 5
+        y: 3
       }
     }));
   }
@@ -188,7 +188,7 @@ class Grid {
     }
 
     this.velocity = {
-      x: 3,
+      x: 2,
       y: 0
     }
 
@@ -466,13 +466,13 @@ function animate() {
   });
 
   if (keys.a.pressed && player.position.x >= 0) {
-    player.velocity.x = -12;
+    player.velocity.x = -8;
     player.rotation = -0.15;
   } else if (
     keys.d.pressed &&
     player.position.x + player.width <= canvas.width
   ) {
-    player.velocity.x = 12;
+    player.velocity.x = 8;
     player.rotation = 0.15;
   } else {
     player.velocity.x = 0;
